@@ -4,10 +4,10 @@ public class hw3code {
 
     static int size = 0;
 
-    public static void addTask(ArrayList<String> tasks, ArrayList<String> statues, String task, String statue){
+    public static void addTask(ArrayList<String> tasks, ArrayList<String> statues, String task, String statu){
        
         tasks.add(task);
-        statues.add(statue);
+        status.add(statue);
         size ++;
     }
 
@@ -15,23 +15,23 @@ public class hw3code {
         return size;
     }
 
-    public static void removeTask(ArrayList<String> tasks, ArrayList<String> statues, int index){
+    public static void removeTask(ArrayList<String> tasks, ArrayList<String> status, int index){
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
         tasks.remove(index);
-        statues.remove(index);
+        status.remove(index);
         size --;
     }
 
-    public static void removeLast(ArrayList<String> tasks, ArrayList<String> statues){
+    public static void removeLast(ArrayList<String> tasks, ArrayList<String> status){
         
         tasks.remove(size-1);
-        statues.remove(size-1);
+        status.remove(size-1);
         size --;
     }
 
-    public static String getTask(ArrayList<String> tasks, ArrayList<String> statues, int index){
+    public static String getTask(ArrayList<String> tasks, ArrayList<String> status, int index){
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
-        return "\"" + tasks.get(index) + "\" is " + statues.get(index);
+        return "\"" + tasks.get(index) + "\" is " + status.get(index);
     }
 
     public boolean isEmpty(){
@@ -41,18 +41,18 @@ public class hw3code {
         return false;
     }
 
-    public static void changeTask(ArrayList<String> tasks, ArrayList<String> statues, int index, String task, String statue){
+    public static void changeTask(ArrayList<String> tasks, ArrayList<String> status, int index, String task, String statu){
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
         tasks.set(index, task);
-        statues.set(index, statue);
+        status.set(index, statue);
     }
 
-    public static void changeStatue(ArrayList<String> tasks, ArrayList<String> statues, int index, String statue){
+    public static void changeStatue(ArrayList<String> tasks, ArrayList<String> status, int index, String statu){
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
-        statues.set(index, statue);
+        statues.set(index, statu);
     }
 
-    public static int findTaskIndex(ArrayList<String> tasks, ArrayList<String> statues, String finding){
+    public static int findTaskIndex(ArrayList<String> tasks, ArrayList<String> status, String finding){
         for(int i = 0; i < size; i ++){
             if(finding.contentEquals(tasks.get(i)))
             return i;
@@ -60,23 +60,23 @@ public class hw3code {
         return -1;    //can't find the task
     }
 
-    public static void foldCompletedTasks(Map<String, ArrayList<String>> folder, ArrayList<String> tasks, ArrayList<String> statues){
+    public static void foldCompletedTasks(Map<String, ArrayList<String>> folder, ArrayList<String> tasks, ArrayList<String> status){
         
         ArrayList<String> complete = new ArrayList<>();
 
         for(int i = 0; i < size; i ++){
-            if(statues.get(i).contentEquals("completed"))
+            if(status.get(i).contentEquals("completed"))
                 complete.add(tasks.get(i));
         }
         folder.put("Completed", complete);
     }
 
-    public static void foldIncompleteTasks(Map<String, ArrayList<String>> folder, ArrayList<String> tasks, ArrayList<String> statues){
+    public static void foldIncompleteTasks(Map<String, ArrayList<String>> folder, ArrayList<String> tasks, ArrayList<String> status){
         
         ArrayList<String> incomplete = new ArrayList<>();
 
         for(int i = 0; i < size; i ++){
-            if(!statues.get(i).contentEquals("completed"))
+            if(!status.get(i).contentEquals("completed"))
                 incomplete.add(tasks.get(i));
         }
         
@@ -89,47 +89,47 @@ public class hw3code {
         Map<String, ArrayList<String>> folder = new HashMap();
 
         ArrayList<String> tasks = new ArrayList<>();
-        ArrayList<String> statues = new ArrayList<>();
+        ArrayList<String> status = new ArrayList<>();
 
 
-        addTask(tasks, statues, "groceries", "completed");
-        addTask(tasks, statues, "laundry", "completed");
-        addTask(tasks, statues, "review", "in progress");
+        addTask(tasks, status, "groceries", "completed");
+        addTask(tasks, status, "laundry", "completed");
+        addTask(tasks, status, "review", "in progress");
 
         for(int i = 0; i < getSize(); i ++){
-            System.out.println(getTask(tasks, statues, i));
+            System.out.println(getTask(tasks, status, i));
         }
         System.out.println("There are " + getSize() + " tasks.");
 
-        removeLast(tasks, statues);
+        removeLast(tasks, status);
 
-        addTask(tasks, statues, "homework", "in progress");
-        addTask(tasks, statues, "feed the pets", "incomplete");
-        addTask(tasks, statues, "learn a song", "inprogess");
+        addTask(tasks, status, "homework", "in progress");
+        addTask(tasks, status, "feed the pets", "incomplete");
+        addTask(tasks, status, "learn a song", "inprogess");
 
-        int seek = findTaskIndex(tasks, statues, "laundry");
+        int seek = findTaskIndex(tasks, status, "laundry");
         if (seek != -1){
-            changeTask(tasks, statues, seek, "review", "in progress");
+            changeTask(tasks, status, seek, "review", "in progress");
         }
         
         for(int i = 0; i < getSize(); i ++){
-            System.out.println(getTask(tasks, statues, i));
+            System.out.println(getTask(tasks, status, i));
         }
         System.out.println("There are " + getSize() + " tasks.");
 
-        removeTask(tasks, statues, 2);
+        removeTask(tasks, status, 2);
         
-        int look = findTaskIndex(tasks, statues, "feed the pets");
+        int look = findTaskIndex(tasks, status, "feed the pets");
         if (seek != -1){
-            changeStatue(tasks, statues, look, "completed");
+            changeStatue(tasks, status, look, "completed");
         }
 
-        addTask(tasks, statues, "presentation", "completed");
-        addTask(tasks, statues, "prepare gift", "in progress");
-        addTask(tasks, statues, "cook", "completed");
+        addTask(tasks, status, "presentation", "completed");
+        addTask(tasks, status, "prepare gift", "in progress");
+        addTask(tasks, status, "cook", "completed");
 
-        foldCompletedTasks(folder, tasks, statues);
-        foldIncompleteTasks(folder, tasks, statues);
+        foldCompletedTasks(folder, tasks, status);
+        foldIncompleteTasks(folder, tasks, status);
 
         System.out.println("The tasks that are completed: " + folder.get("Completed"));
         System.out.println("The tasks that are incomplete: " + folder.get("Incomplete"));
